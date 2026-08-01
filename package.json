@@ -1,0 +1,46 @@
+{
+  "name": "stellar-freelance-escrow",
+  "version": "1.0.0",
+  "description": "A decentralized freelancing platform with escrow and reputation on Stellar",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "contracts"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "build": "npm run build --workspace=frontend && npm run build --workspace=backend",
+    "build:contracts": "npm run build --workspace=contracts",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "deploy:contracts": "npm run deploy --workspace=contracts",
+    "setup": "npm install && npm run setup --workspaces --if-present"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "@types/node": "^20.10.5",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sharayu-github/FreelanceStellarRoad.RiseIn.git"
+  },
+  "keywords": [
+    "stellar",
+    "soroban",
+    "escrow",
+    "freelance",
+    "blockchain",
+    "dapp",
+    "reputation"
+  ],
+  "author": "Sharayu",
+  "license": "MIT"
+}
