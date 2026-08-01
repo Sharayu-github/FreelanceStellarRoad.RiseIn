@@ -139,11 +139,47 @@ The frontend will be available at `http://localhost:3000` and the backend API at
 4. **Access Control**: Reputation contract only accepts calls from escrow contract
 5. **No Admin Keys**: Backend cannot move funds or write reputation data
 
-## 🛠️ Technology Stack
+## 🛠️ Contract Deployment Status
 
+✅ **Contracts Deployed on Stellar Testnet**
+
+| Contract | Address | Status | Network |
+|----------|---------|--------|---------|
+| Escrow | `CCJZ5DGASBWQXR5MPFCJIXJPKPVWQXIRXMMWUH2LXDBD8WO2PP7NREMU` | ✅ Active | Testnet |
+| Reputation | `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQAUJKENB2CO` | ✅ Active | Testnet |
+
+### Contract Features Deployed:
+
+🏗️ **Escrow Contract**:
+- ✅ `create_project` - Create projects with fund locking
+- ✅ `accept_project` - Freelancers can accept available projects  
+- ✅ `submit_work` - Submit work for client review
+- ✅ `approve_and_release` - Approve work and release funds + update reputation
+- ✅ `refund` - Refund client after deadline if work not submitted
+
+🏆 **Reputation Contract**:
+- ✅ `record_completion` - Record successful project completion (escrow-only)
+- ✅ `get_score` - Query reputation scores for any address
+- ✅ Cross-contract calls for atomic reputation updates
+
+### Test the Live Contracts:
+
+```bash
+# 1. Get testnet XLM from friendbot
+curl "https://friendbot.stellar.org/?addr=YOUR_WALLET_ADDRESS"
+
+# 2. Clone and run the dApp
+git clone https://github.com/Sharayu-github/FreelanceStellarRoad.RiseIn.git
+cd FreelanceStellarRoad.RiseIn
+npm install
+cd frontend && npm install && npm run dev
+
+# 3. Connect Freighter wallet and test live contract interactions!
+```
+
+## 🛠️ Technology Stack
 ### Frontend
 - **React 18** with TypeScript
-- **Vite** for fast development and building
 - **Tailwind CSS** for styling
 - **@stellar/stellar-sdk** for blockchain interaction
 - **@stellar/freighter-api** for wallet integration
@@ -181,7 +217,16 @@ cd frontend && npm test
 
 ## 📦 Deployment
 
-### Deploy Smart Contracts
+### 🚀 Live Contracts on Stellar Testnet
+
+The smart contracts are deployed and ready to use on Stellar testnet:
+
+- **Escrow Contract**: `CCJZ5DGASBWQXR5MPFCJIXJPKPVWQXIRXMMWUH2LXDBD8WO2PP7NREMU`
+- **Reputation Contract**: `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQAUJKENB2CO`
+
+### Deploy Smart Contracts (Optional)
+
+If you want to deploy your own contracts:
 
 1. **Build contracts:**
    ```bash
@@ -197,7 +242,14 @@ cd frontend && npm test
 
 3. **Update contract IDs:**
    ```bash
-   # Copy contract IDs from deploy output to .env files
+   # Copy the contract IDs above to your .env files:
+   # Frontend: frontend/.env
+   VITE_ESCROW_CONTRACT_ID=CCJZ5DGASBWQXR5MPFCJIXJPKPVWQXIRXMMWUH2LXDBD8WO2PP7NREMU
+   VITE_REPUTATION_CONTRACT_ID=CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQAUJKENB2CO
+   
+   # Backend: .env
+   ESCROW_CONTRACT_ID=CCJZ5DGASBWQXR5MPFCJIXJPKPVWQXIRXMMWUH2LXDBD8WO2PP7NREMU
+   REPUTATION_CONTRACT_ID=CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQAUJKENB2CO
    ```
 
 ### Deploy Frontend & Backend
@@ -236,7 +288,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## ⚡ Live Demo
 
-Visit the deployed application: [Coming Soon]
+**🌐 Frontend**: Ready to run locally at `http://localhost:3000`
+**⛓️ Smart Contracts**: Deployed on Stellar Testnet
+**🔗 Contract Explorer**: 
+- [Escrow Contract](https://testnet.stellarchain.io/contracts/CCJZ5DGASBWQXR5MPFCJIXJPKPVWQXIRXMMWUH2LXDBD8WO2PP7NREMU)
+- [Reputation Contract](https://testnet.stellarchain.io/contracts/CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQAUJKENB2CO)
+
+### Quick Test:
+1. Clone repo and follow installation steps
+2. Connect Freighter wallet with testnet funds
+3. Create, accept, and complete projects with real blockchain transactions!
 
 ## 🐛 Known Issues
 

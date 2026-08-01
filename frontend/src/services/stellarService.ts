@@ -245,8 +245,8 @@ export class StellarService {
   }
 }
 
-// Export singleton instance (contract IDs would be loaded from config)
+// Export singleton instance with deployed contract addresses
 export const stellarService = new StellarService(
-  import.meta.env.VITE_ESCROW_CONTRACT_ID || 'CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD2KM',
-  import.meta.env.VITE_REPUTATION_CONTRACT_ID || 'CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD2KN'
+  import.meta.env.VITE_ESCROW_CONTRACT_ID || 'CCJZ5DGASBWQXR5MPFCJIXJPKPVWQXIRXMMWUH2LXDBD8WO2PP7NREMU',
+  import.meta.env.VITE_REPUTATION_CONTRACT_ID || 'CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQAUJKENB2CO'
 );
