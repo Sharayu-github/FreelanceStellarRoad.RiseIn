@@ -12,8 +12,7 @@ import {
   CheckCircle,
   AlertCircle,
   Loader2,
-  ExternalLink,
-  MessageSquare
+  ExternalLink
 } from 'lucide-react';
 
 interface Project {

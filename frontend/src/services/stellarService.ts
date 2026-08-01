@@ -8,7 +8,7 @@ import {
   scValToNative,
   BASE_FEE
 } from '@stellar/stellar-sdk';
-import { isConnected, getPublicKey, signTransaction } from '@stellar/freighter-api';
+import { getPublicKey, signTransaction } from '@stellar/freighter-api';
 
 const server = new SorobanRpc.Server('https://soroban-testnet.stellar.org');
 const networkPassphrase = Networks.TESTNET;
@@ -41,11 +41,11 @@ export class StellarService {
       })
         .addOperation(contract.call(
           'create_project',
-          Address.fromString(publicKey),
+          Address.fromString(publicKey).toScVal(),
           nativeToScVal(title, { type: 'string' }),
           nativeToScVal(metaHash, { type: 'string' }),
           nativeToScVal(BigInt(Math.round(parseFloat(amount) * 10000000)), { type: 'i128' }),
-          Address.fromString(tokenAddress),
+          Address.fromString(tokenAddress).toScVal(),
           nativeToScVal(BigInt(deadline), { type: 'u64' })
         ))
         .setTimeout(30)
@@ -62,7 +62,7 @@ export class StellarService {
         simulationResponse
       );
 
-      const signedXdr = await signTransaction(preparedTransaction.toXDR(), {
+      const signedXdr = await signTransaction((preparedTransaction as any).toEnvelope().toXDR(), {
         networkPassphrase: networkPassphrase,
         accountToSign: publicKey,
       });
@@ -94,7 +94,7 @@ export class StellarService {
         .addOperation(contract.call(
           'accept_project',
           nativeToScVal(BigInt(projectId), { type: 'u64' }),
-          Address.fromString(publicKey)
+          Address.fromString(publicKey).toScVal()
         ))
         .setTimeout(30)
         .build();
@@ -120,7 +120,7 @@ export class StellarService {
         .addOperation(contract.call(
           'submit_work',
           nativeToScVal(BigInt(projectId), { type: 'u64' }),
-          Address.fromString(publicKey),
+          Address.fromString(publicKey).toScVal(),
           nativeToScVal(workRef, { type: 'string' })
         ))
         .setTimeout(30)
@@ -147,7 +147,7 @@ export class StellarService {
         .addOperation(contract.call(
           'approve_and_release',
           nativeToScVal(BigInt(projectId), { type: 'u64' }),
-          Address.fromString(publicKey)
+          Address.fromString(publicKey).toScVal()
         ))
         .setTimeout(30)
         .build();
@@ -201,7 +201,7 @@ export class StellarService {
       })
         .addOperation(contract.call(
           'get_score',
-          Address.fromString(userAddress)
+          Address.fromString(userAddress).toScVal()
         ))
         .setTimeout(30)
         .build();
@@ -231,7 +231,7 @@ export class StellarService {
       simulationResponse
     );
 
-    const signedXdr = await signTransaction(preparedTransaction.toXDR(), {
+    const signedXdr = await signTransaction((preparedTransaction as any).toEnvelope().toXDR(), {
       networkPassphrase: networkPassphrase,
       accountToSign: publicKey,
     });

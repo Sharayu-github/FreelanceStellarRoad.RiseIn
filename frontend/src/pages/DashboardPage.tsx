@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useWallet } from '../context/WalletContext';
-import ProjectCard from '../components/ProjectCard';
-import ReputationGauge from '../components/ReputationGauge';
 import StatusBadge from '../components/StatusBadge';
+import ReputationGauge from '../components/ReputationGauge';
 import { 
   Briefcase, 
   Plus, 
