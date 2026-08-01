@@ -288,7 +288,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## ⚡ Live Demo
 
-**🌐 Frontend**: Ready to run locally at `http://localhost:3000`
+**🌐 Frontend**: **https://stellar-freelance-escrow.vercel.app** ✨ **LIVE ON VERCEL** ✨
 **⛓️ Smart Contracts**: Deployed on Stellar Testnet
 **🔗 Contract Explorer**: 
 - [Escrow Contract](https://testnet.stellarchain.io/contracts/CCJZ5DGASBWQXR5MPFCJIXJPKPVWQXIRXMMWUH2LXDBD8WO2PP7NREMU)
