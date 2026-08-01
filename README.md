@@ -1,6 +1,6 @@
 # Stellar Freelance Escrow & Reputation dApp
 
-A decentralized freelancing platform where clients lock project funds in a Soroban escrow contract, freelancers submit work, clients approve it, payment auto-releases on-chain, and both parties' on-chain reputation updates automatically as a direct result of that release — verifiable, not just claimed.
+A decentralized freelancing platform built on Stellar blockchain where clients lock project funds in Soroban escrow contracts, freelancers submit work, clients approve it, payment auto-releases on-chain, and both parties' on-chain reputation updates automatically as a direct result of that release — verifiable, not just claimed.
 
 ## 🎯 One-line Pitch
 
@@ -8,7 +8,7 @@ A decentralized freelancing platform where a client locks project funds in a Sor
 
 ## 🏗️ Architecture
 
-This is a hybrid architecture modeled on the OpenSkills Oracle pattern:
+This is a hybrid architecture with three main components:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -39,7 +39,7 @@ This is a hybrid architecture modeled on the OpenSkills Oracle pattern:
 
 ### Key Architectural Decision
 
-**We mirrored the reference repo's layering, but moved the trust-critical write off the backend and onto the contract itself, because our source-of-truth event is on-chain rather than external.**
+**We moved the trust-critical write off the backend and onto the contract itself, because our source-of-truth event is on-chain rather than external.**
 
 The backend never holds an admin key that can move escrow funds or trigger reputation updates. Reputation updates happen via cross-contract calls from the escrow contract's `approve_and_release` function, restricted to being called only by the escrow contract itself.
 
@@ -57,9 +57,9 @@ The backend never holds an admin key that can move escrow funds or trigger reput
 
 1. **Clone and install dependencies:**
    ```bash
-   git clone https://github.com/nishitbhalerao/stellar-freelance-escrow.git
-   cd stellar-freelance-escrow
-   npm run setup
+   git clone https://github.com/Sharayu-github/FreelanceStellarRoad.RiseIn.git
+   cd FreelanceStellarRoad.RiseIn
+   npm install
    ```
 
 2. **Set up environment variables:**
@@ -68,14 +68,19 @@ The backend never holds an admin key that can move escrow funds or trigger reput
    # Edit .env with your configuration
    ```
 
-3. **Deploy contracts to testnet:**
+3. **Install workspace dependencies:**
    ```bash
-   npm run deploy:contracts
+   cd frontend && npm install && cd ..
+   cd backend && npm install && cd ..
    ```
 
 4. **Start development servers:**
    ```bash
-   npm run dev
+   # Start backend (Terminal 1)
+   cd backend && npm run dev
+   
+   # Start frontend (Terminal 2) 
+   cd frontend && npm run dev
    ```
 
 The frontend will be available at `http://localhost:3000` and the backend API at `http://localhost:8000`.
@@ -93,18 +98,18 @@ The frontend will be available at `http://localhost:3000` and the backend API at
 │   │   ├── models/     # MongoDB models
 │   │   ├── routes/     # API routes
 │   │   ├── services/   # Business logic
-│   │   └── middleware/ # Express middleware
-│   └── tests/          # Backend tests
+│   │   └── index.ts    # Main server file
+│   └── package.json
 ├── frontend/           # React/TypeScript frontend
 │   ├── src/
 │   │   ├── components/ # Reusable UI components
 │   │   ├── pages/      # Application pages
 │   │   ├── services/   # API and blockchain services
 │   │   ├── context/    # React context providers
-│   │   └── hooks/      # Custom React hooks
-│   └── public/         # Static assets
-├── docs/               # Documentation
-└── scripts/            # Deployment and utility scripts
+│   │   └── App.tsx     # Main app component
+│   └── package.json
+├── deploy.sh           # Contract deployment script
+└── README.md
 ```
 
 ## 🔗 Key Features
@@ -134,6 +139,30 @@ The frontend will be available at `http://localhost:3000` and the backend API at
 4. **Access Control**: Reputation contract only accepts calls from escrow contract
 5. **No Admin Keys**: Backend cannot move funds or write reputation data
 
+## 🛠️ Technology Stack
+
+### Frontend
+- **React 18** with TypeScript
+- **Vite** for fast development and building
+- **Tailwind CSS** for styling
+- **@stellar/stellar-sdk** for blockchain interaction
+- **@stellar/freighter-api** for wallet integration
+- **React Router** for navigation
+- **Lucide React** for icons
+
+### Backend  
+- **Node.js** with Express
+- **TypeScript** for type safety
+- **MongoDB** with Mongoose
+- **@stellar/stellar-sdk** for contract events
+- **CORS** and security middleware
+
+### Smart Contracts
+- **Rust** with Soroban SDK
+- **Cargo workspace** for organization
+- **Cross-contract calls** for atomic operations
+- **Event emission** for frontend sync
+
 ## 🧪 Testing
 
 ```bash
@@ -141,22 +170,45 @@ The frontend will be available at `http://localhost:3000` and the backend API at
 npm test
 
 # Test contracts only
-npm run test --workspace=contracts
+cd contracts && cargo test
 
 # Test backend only
-npm run test --workspace=backend
+cd backend && npm test
 
 # Test frontend only
-npm run test --workspace=frontend
+cd frontend && npm test
 ```
 
-## 📚 Documentation
+## 📦 Deployment
 
-- [Architecture Design](./docs/architecture.md)
-- [Smart Contract API](./docs/contracts.md)
-- [Backend API Reference](./docs/api.md)
-- [Frontend Development](./docs/frontend.md)
-- [Deployment Guide](./docs/deployment.md)
+### Deploy Smart Contracts
+
+1. **Build contracts:**
+   ```bash
+   cd contracts
+   cargo build --target wasm32-unknown-unknown --release
+   ```
+
+2. **Deploy to testnet:**
+   ```bash
+   chmod +x deploy.sh
+   ./deploy.sh
+   ```
+
+3. **Update contract IDs:**
+   ```bash
+   # Copy contract IDs from deploy output to .env files
+   ```
+
+### Deploy Frontend & Backend
+
+```bash
+# Build frontend
+cd frontend && npm run build
+
+# Start backend in production
+cd backend && npm run build && npm start
+```
 
 ## 🤝 Contributing
 
@@ -173,5 +225,34 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - Stellar Development Foundation for Soroban
-- OpenSkills Oracle reference architecture
 - Stellar community for best practices and examples
+- React and Node.js communities for excellent tooling
+
+## 📚 Documentation
+
+- [Stellar Documentation](https://developers.stellar.org/)
+- [Soroban Smart Contracts](https://soroban.stellar.org/)
+- [Freighter Wallet](https://www.freighter.app/)
+
+## ⚡ Live Demo
+
+Visit the deployed application: [Coming Soon]
+
+## 🐛 Known Issues
+
+- Some npm audit warnings (development dependencies only)
+- Contract deployment requires Stellar CLI setup
+- MongoDB connection required for backend
+
+## 🗺️ Roadmap
+
+- [ ] Deploy to Stellar mainnet
+- [ ] Add multi-freelancer bidding
+- [ ] Implement dispute resolution
+- [ ] Add fiat on/off ramp integration
+- [ ] Mobile app development
+- [ ] Advanced reputation metrics
+
+---
+
+**Built with ❤️ on Stellar blockchain**
