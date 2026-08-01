@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "name": "stellar-freelance-escrow",
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "frontend/dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "/frontend/index.html"
+    }
+  ],
+  "env": {
+    "VITE_API_BASE_URL": "https://your-backend-url.vercel.app/api",
+    "VITE_ESCROW_CONTRACT_ID": "CCJZ5DGASBWQXR5MPFCJIXJPKPVWQXIRXMMWUH2LXDBD8WO2PP7NREMU",
+    "VITE_REPUTATION_CONTRACT_ID": "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQAUJKENB2CO",
+    "VITE_STELLAR_NETWORK": "testnet"
+  }
+}
